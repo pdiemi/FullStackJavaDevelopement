@@ -1,0 +1,2 @@
+module day3 {
+}
