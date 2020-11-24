@@ -1,4 +1,4 @@
-package exercises;
+package typecasting;
 
 public class TypeCasting {
 
