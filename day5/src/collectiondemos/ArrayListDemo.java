@@ -26,21 +26,27 @@ public class ArrayListDemo {
 	}
 	
 	public static void showMenu() {
-		System.out.println("Welcome to ArrayList Examples!");
-		System.out.println("Please choose an example below: ");
-		System.out.println("0 - Exit the program");
-		System.out.println("1 - Size of the ArrayList");
-		System.out.println("2 - Print the ArrayList");
-		System.out.println("3 - Add a new element to end of the ArrayList");
-		System.out.println("4 - Insert a new elemnent to the ArrayList");
-		System.out.println("5 - Remove an element from the ArrayList");
-		System.out.println("6 - Sort ArrayList ASC by employee ID");
-		System.out.println("7 - Sort ArrayList ASC by employee name");
-		System.out.println("8 - Sort ArrayList ASC by employee city");
-		System.out.println("9 - Reverse the ArrayList");
-		System.out.print("Please enter a number between 0 and 9: ");
+		System.out.println("|--------------------------------------------------------|");
+		System.out.println("|     Welcome to ArrayList Examples!                     |");
+		System.out.println("|     Please choose an example below:                    |");
+		System.out.println("|--------------------------------------------------------|");
+		System.out.println("|     0 - Exit the program                               |");
+		System.out.println("|     1 - Size of the ArrayList                          |");
+		System.out.println("|     2 - Print the ArrayList                            |");
+		System.out.println("|     3 - Add a new element to end of the ArrayList      |");
+		System.out.println("|     4 - Insert a new elemnent to the ArrayList         |");
+		System.out.println("|     5 - Remove an element from the ArrayList           |");
+		System.out.println("|     6 - Sort ArrayList ASC by employee ID              |");
+		System.out.println("|     7 - Sort ArrayList ASC by employee name            |");
+		System.out.println("|     8 - Sort ArrayList ASC by employee city            |");
+		System.out.println("|     9 - Reverse the ArrayList                          |");
+		System.out.println("|--------------------------------------------------------|");
+		
 	}
 	
+	/**
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		//Initialize an ArrayList of Employee
 		ArrayList<Employee> al = new ArrayList<Employee>();
@@ -57,9 +63,10 @@ public class ArrayListDemo {
 		
 		do {
 			showMenu();
+			System.out.print("Please enter your choice between 0 and 9: ");
 			choice = scan2.nextInt();
 			while(choice > 9 && choice < 0) {
-				System.out.print("Please enter a number between 0 and 9: ");
+				System.out.print("Please enter your choice between 0 and 9: ");
 			}
 			
 			switch (choice)  {
@@ -116,7 +123,7 @@ public class ArrayListDemo {
 				break;
 			}
 			
-			System.out.print("\nDo you want to continue? 1-yes, 0-no: ");
+			System.out.print("\nWould you like to continue? 1-yes, 0-no: ");
 			choice = scan2.nextInt();
 			
 		} while (choice!=0);
