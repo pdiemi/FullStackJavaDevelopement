@@ -33,13 +33,14 @@ public class EmailValidation {
 	//employee email list
 	private ArrayList emailList;
 	
-	private static final String REGEX = "^(.+)@(.+)$";
+	private String regex;
 	
 	//construction with parameters
 	public EmailValidation(String domain, ArrayList emailList) {
 		super();
 		this.domain = domain;
 		this.emailList = emailList;
+		this.regex = "^(.+)@" + domain + "";
 	}
 
 	/*
