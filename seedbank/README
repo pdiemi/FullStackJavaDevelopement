@@ -1,0 +1,17 @@
+Objective: To learn how to create threads.
+
+Problem Description: Automate the transactions (both Deposit and withdrawal) in SeedBank. 
+You have to use multithre ading approach to handle multiple requests at one time.
+Classe s required:
+
+Customer: A customer object represents the customers of SeedBank
+
+Account: An account object represents an account i n SeedBank InsufficientBalanceException: An exception object thrown to indicate if the balance in the account is insufficient for the transaction UnauthorizedWithdrawalException: The exception object thrown when the unauthorized person tries to withdraw from an account
+
+DepositTransaction: This represents the depositing transaction in SeedBank
+
+Security: This represents the authentication done for a transaction in SeedBank 
+
+Withdraw Transaction: This represents the withdrawal transaction done in SeedBank
+
+SeedBank: The starter class for the entire application
