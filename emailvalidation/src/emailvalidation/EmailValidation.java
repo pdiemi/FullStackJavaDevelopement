@@ -19,38 +19,41 @@ You must use the following:
 NOTES:
 - In this project, email ID is formatted as 
   <employee_name>@<domain>
+- A-Z, a-z, 0-9, -, _, and . are permitted,
+  any other special character is not permitted
 */
 
 package emailvalidation;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class EmailValidation {
 
-	//domain name
-	private String domain;
-	//employee email list
-	private ArrayList emailList;
+	//REGEX used for validate email format
+	//public static final String REGEX = "^(.+)@(.+)$";
 	
-	private String regex;
+	public static final String REGEX = "^[A-Za-z0-9]+[A-Za-z0-9_.-]*[A-Za-z0-9]+" +
+									   "@[A-Za-z0-9]+[A-Za-z0-9.]+[A-Za-z0-9]+$";
 	
-	//construction with parameters
-	public EmailValidation(String domain, ArrayList emailList) {
-		super();
-		this.domain = domain;
-		this.emailList = emailList;
-		this.regex = "^(.+)@" + domain + "";
-	}
-
 	/*
 	 * This method uses Java regex to validate syntax of 
 	 * input from user. If input does not follow 
 	 * <eployee_name>@<domain>,the method returns false. 
 	 * Otherwise, returns true.
 	 */
-	public boolean validateSyntax(String input) {
-		return false;
+	public static boolean validate(String input) {
+		if (input.isEmpty())
+			return false;
+		else {
+			Pattern pattern = Pattern.compile(REGEX);
+			return pattern.matcher(input).matches();
+		}
  	}
 	
 	/*
@@ -58,17 +61,51 @@ public class EmailValidation {
 	 * in the given email array list. The method returns true
 	 * if the input is in the email list. Otherwise, returns false.
 	 * */
-	public boolean validateExist(String input) {
-		return false;
+	public static boolean search(String input, ArrayList list) {
+		if (input.isEmpty())
+			return false;
+		else {
+			return list.contains(input);
+		}
+	}
+	
+	public static ArrayList<String> getEmailList(String fileName, ArrayList<String> emailList) {
+		
+		try {
+			File file = new File(fileName);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				emailList.add(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return emailList;
 	}
 	
 	public static void main(String[] args) {
+		//create an email list from file email.txt
+		ArrayList<String> emailList = new ArrayList<String>();
+		getEmailList("email.txt", emailList);
+		//emailList.forEach(System.out::println);
 		
 		//get input from user
+		String input;
+		System.out.println("Enter email address to validate (ex: example@email.com)");
+		Scanner scan = new Scanner(System.in);
+		input = scan.next();
 		
 		//validate syntax of input
+		while (!validate(input)) {
+			System.out.println("Your input is invalid. Please try again.");
+			System.out.println("Enter email address to validate (ex: example@email.com):\n");
+			input = scan.next();
+		}
 		
 		//search for input from the email list
+		System.out.println("Validating... Please wait...");
+		System.out.println(input + " is " + (search(input, emailList)?"verified!":"not found!"));
 	}
 
 }
