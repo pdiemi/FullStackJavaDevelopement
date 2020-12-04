@@ -7,7 +7,8 @@
  * This program takes an email address entered by user
  * as input and validate if the input email address is
  * valid. A valid email address must follow the format
- * <username>@<domain> and exist in the given email list.
+ * <username>@<domain> and exists in the given email list.
+ * The email list is provided as a text file (email.txt).
  * 
  * - email address is not case sensitive
  * - <username> must not start/end with a special character
@@ -16,7 +17,6 @@
  * - <username> is no shorter than two characters
  * - <domain> must not start/end with a special character
  * - <domain> allows a-z, 0-9, and dot(.)
- * - The email list is provided as a text file (email.txt)
  * */
 
 package emailvalidation;
@@ -97,7 +97,8 @@ public class EmailValidation {
 							" This program takes an email address entered by user\r\n" + 
 							" as input and validate if the input email address is\r\n" + 
 							" valid. A valid email address must follow the format\r\n" + 
-							" <username>@<domain> and exist in the given email list.\r\n" + 
+							" <username>@<domain> and exists in the given email list.\r\n" + 
+							" The email list is provided as a text file (email.txt).\r\n" +
 							" \r\n" + 
 							" - email address is not case sensitive\r\n" + 
 							" - <username> must not start/end with a special character\r\n" + 
@@ -110,8 +111,6 @@ public class EmailValidation {
 							" For testing purpose, examples of valid email address are:\r\n" +
 							"\texample@email.com\r\n" +
 							"\tmichaeljreynolds@dayrep.com\r\n" +
-							jenniferadavis@einrot.com
-							kelsidjohnson@rhyta.com
 							"---------------------------------------------------------------\n");
 		
 		
