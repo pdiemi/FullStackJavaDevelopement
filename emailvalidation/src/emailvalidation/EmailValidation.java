@@ -1,27 +1,23 @@
+
 /*
-Validation of an Email ID .
-
-Project objective:
-As a developer, write a program to search a string entered 
-by a user from the array of strings.
-
-Background of the problem statement:
-You have an array of email IDs of employees. As a programmer, 
-write a program to search the email ID entered by a user.
-
-You must use the following:
-- Eclipse/IntelliJ: An IDE to code the application
-- Java: A programming language
-- Git: To connect and push files from the local system to GitHub
-- GitHub: To store the application code and track its versions
-- Core Java concepts: Methods, collections, and strings
-
-NOTES:
-- In this project, email ID is formatted as 
-  <employee_name>@<domain>
-- A-Z, a-z, 0-9, -, _, and . are permitted,
-  any other special character is not permitted
-*/
+ * Developer: Diemi Pham
+ * Project: Validation of an Email ID
+ * Date: Dec 2020
+ * 
+ * This program takes an email address entered by user
+ * as input and validate if the input email address is
+ * valid. A valid email address must follow the format
+ * <username>@<domain> and exist in the given email list.
+ * 
+ * - email address is not case sensitive
+ * - <username> must not start/end with a special character
+ * - <username> allows a-z, 0-9, hyphen (-), underscore (_),
+ *   and dot (.)
+ * - <username> is no shorter than two characters
+ * - <domain> must not start/end with a special character
+ * - <domain> allows a-z, 0-9, and dot(.)
+ * - The email list is provided as a text file (email.txt)
+ * */
 
 package emailvalidation;
 
@@ -61,7 +57,7 @@ public class EmailValidation {
 	 * in the given email array list. The method returns true
 	 * if the input is in the email list. Otherwise, returns false.
 	 * */
-	public static boolean search(String input, ArrayList list) {
+	public static boolean search(String input, ArrayList<String> list) {
 		if (input.isEmpty())
 			return false;
 		else {
@@ -69,6 +65,11 @@ public class EmailValidation {
 		}
 	}
 	
+	/*
+	 * This method is used to dump a list of email from
+	 * file <fileName> to an array list <emailList> and
+	 * returns the emailList.
+	 * */
 	public static ArrayList<String> getEmailList(String fileName, ArrayList<String> emailList) {
 		
 		try {
@@ -84,7 +85,36 @@ public class EmailValidation {
 		return emailList;
 	}
 	
+	/*
+	 * Driver method for the program
+	 * */
 	public static void main(String[] args) {
+		
+		//print instrucstion
+		System.out.println( "---------------------------------------------------------------\n" +
+							"\tWelcome to Email Address Validator!\n" +
+							"---------------------------------------------------------------\n" +
+							" This program takes an email address entered by user\r\n" + 
+							" as input and validate if the input email address is\r\n" + 
+							" valid. A valid email address must follow the format\r\n" + 
+							" <username>@<domain> and exist in the given email list.\r\n" + 
+							" \r\n" + 
+							" - email address is not case sensitive\r\n" + 
+							" - <username> must not start/end with a special character\r\n" + 
+							" - <username> allows a-z, 0-9, hyphen (-), underscore (_),\r\n" + 
+							"   and dot (.)\r\n" + 
+							" - <username> is no shorter than two characters\r\n" + 
+							" - <domain> must not start/end with a special character\r\n" + 
+							" - <domain> allows a-z, 0-9, and dot(.)\r\n" +
+							"\r\n" +
+							" For testing purpose, examples of valid email address are:\r\n" +
+							"\texample@email.com\r\n" +
+							"\tmichaeljreynolds@dayrep.com\r\n" +
+							jenniferadavis@einrot.com
+							kelsidjohnson@rhyta.com
+							"---------------------------------------------------------------\n");
+		
+		
 		//create an email list from file email.txt
 		ArrayList<String> emailList = new ArrayList<String>();
 		getEmailList("email.txt", emailList);
@@ -94,18 +124,21 @@ public class EmailValidation {
 		String input;
 		System.out.println("Enter email address to validate (ex: example@email.com)");
 		Scanner scan = new Scanner(System.in);
-		input = scan.next();
+		input = scan.next().toLowerCase();
 		
 		//validate syntax of input
 		while (!validate(input)) {
 			System.out.println("Your input is invalid. Please try again.");
 			System.out.println("Enter email address to validate (ex: example@email.com):\n");
-			input = scan.next();
+			input = scan.next().toLowerCase();
 		}
 		
 		//search for input from the email list
-		System.out.println("Validating... Please wait...");
+		System.out.println("Searching... Please wait...");
 		System.out.println(input + " is " + (search(input, emailList)?"verified!":"not found!"));
+		
+		//close the scanner
+		scan.close();
 	}
 
 }
