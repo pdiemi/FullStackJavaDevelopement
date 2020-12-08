@@ -3,14 +3,12 @@ package jbdcdemo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResultSetDemo {
+public class UpdateDemo {
 
 	public static void main(String[] args) {
-
-		String sql = "select * from employee";
+		String sql = "update employee set empCity=? where empName=?";
 		Connection conn = null;
 		PreparedStatement pst = null;
 
@@ -23,35 +21,29 @@ public class ResultSetDemo {
 
 			// write the statement
 			pst = conn.prepareStatement(sql);
-			ResultSet rs = pst.executeQuery();
-
-			System.out.println("EMPLOYEE:");
-			while (rs.next()) {
-				String name = rs.getString(1);
-				String email = rs.getString(2);
-				String city = rs.getString(3);
-
-				System.out.println(name + " " + email + " " + city);
-			}
+			pst.setString(1, "SA");
+			pst.setString(2, "diemi");
+			
+			// execute the statement
+			pst.executeUpdate();
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+			System.out.println("user is updated");
+
 			try {
 				// close the statement
 				pst.close();
 				// close the onnection
 				conn.close();
-				if (conn.isClosed())
-					System.out.println("connection is closed");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
-
 	}
 
 }
