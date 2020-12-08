@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ResultSetDemo {
 
@@ -13,6 +15,7 @@ public class ResultSetDemo {
 		String sql = "select * from employee";
 		Connection conn = null;
 		PreparedStatement pst = null;
+		ArrayList<Employee> empList = new ArrayList<>();
 
 		try {
 			// load the driver
@@ -31,8 +34,12 @@ public class ResultSetDemo {
 				String email = rs.getString(2);
 				String city = rs.getString(3);
 
-				System.out.println(name + " " + email + " " + city);
+				Employee emp = new Employee(name, email, city);
+				empList.add(emp);
 			}
+			
+			Collections.sort(empList, new EmployeeNameComparator());
+			empList.forEach(System.out::println);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
