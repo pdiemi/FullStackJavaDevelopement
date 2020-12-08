@@ -34,8 +34,7 @@ public class ResultSetDemo {
 				String email = rs.getString(2);
 				String city = rs.getString(3);
 
-				Employee emp = new Employee(name, email, city);
-				empList.add(emp);
+				empList.add(new Employee(name, email, city));
 			}
 			
 			Collections.sort(empList, new EmployeeNameComparator());
