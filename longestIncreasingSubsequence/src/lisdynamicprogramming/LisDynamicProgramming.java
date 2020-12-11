@@ -7,56 +7,7 @@ import java.util.Scanner;
 
 public class LisDynamicProgramming {
 
-	public static void main(String[] args) {
-
-		/*
-		 * get length of the sequence from usre input
-		 */
-		int sequenceLength = setLength();
-
-		/*
-		 * generate a random sequence of <sequenceLength> integers in range [0-100] and
-		 * print the sequence
-		 */
-		ArrayList<Integer> sequence = new ArrayList<>();
-		sequence = generateSequence(sequenceLength);
-
-		/*
-		 * find length of longest increasing sub-sequence and print the sub-sequence
-		 */
-		int lengthMax = lis(sequence);
-
-	}
-
-	public static int setLength() {
-		/*
-		 * get length of the sequence from usre input <sequenceLength>
-		 */
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Enter length of the sequence: ");
-		int length = scan.nextInt();
-		scan.close();
-		return length;
-	}
-
-	public static ArrayList<Integer> generateSequence(int sequenceLength) {
-		/*
-		 * generate, print, and return a random sequence of <sequenceLength> integers in
-		 * range [0-100]
-		 */
-		ArrayList<Integer> sequence = new ArrayList<>();
-		Random rand = new Random();
-		int randNumber;
-		for (int i = 0; i < sequenceLength; i++) {
-			randNumber = rand.nextInt(101);
-			sequence.add(randNumber);
-		}
-		System.out.println("Original sequence: ");
-		System.out.println(sequence);
-		return sequence;
-	}
-
-	public static int lis(ArrayList<Integer> sequence) {
+	public void lis(ArrayList<Integer> sequence) {
 		/*
 		 * find and print length of longest increasing sub-sequence, return length of
 		 * the longest sub-sequence
@@ -88,10 +39,9 @@ public class LisDynamicProgramming {
 		System.out.println("The longest increasing sub-sequence: ");
 		printLIS(sequence, subSequence, maxIndex);
 
-		return maxLength;
 	}
 
-	public static int findIndexOf(ArrayList<Integer> sequence, int value) {
+	public int findIndexOf(ArrayList<Integer> sequence, int value) {
 		/*
 		 * return the first index of element equals to value, otherwise return -1
 		 */
@@ -103,7 +53,7 @@ public class LisDynamicProgramming {
 		return -1;
 	}
 	
-	public static void printLIS(ArrayList<Integer> sequence, ArrayList<Integer> subSequence, int maxIndex) {
+	public void printLIS(ArrayList<Integer> sequence, ArrayList<Integer> subSequence, int maxIndex) {
 		int currentIndex = maxIndex;
 		ArrayList<Integer> lis = new ArrayList<>();
 		while (currentIndex >= 0) {
