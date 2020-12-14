@@ -1,9 +1,9 @@
-package data.structure;
+package comparators;
 
 import java.io.File;
 import java.util.Comparator;
 
-public class FileNameComparator implements Comparator<File>{
+public class FileNameComparatorAsc implements Comparator<File>{
 
 	@Override
 	public int compare(File o1, File o2) {

@@ -1,21 +1,23 @@
 package filehandling;
 
 import java.io.File;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Scanner;
 
-import data.structure.FileNameComparator;
+import comparators.*;
 import driver.FileHandlingDisplay;
-import exceptions.*;
+import exceptions.FileNameIsNullException;
+import exceptions.FileNameIsTooLongException;
+import exceptions.UserChoiceIsInvalidException;
 
 public class FileHandler implements FileHandlerInterface {
 	/*
-	 * Number of choices from the main display and 
-	 * sub-display exclude option to exit the display
-	 * */ 
-	public static final int MAIN_DISPLAY_CHOICES = 4;  
+	 * Number of choices from the main display and sub-display exclude option to
+	 * exit the display
+	 */
+	public static final int MAIN_DISPLAY_CHOICES = 5;
 	public static final int SUB_DISPLAY_CHOICES = 1;
-	
+
 	private File[] fileList;
 	private String directoryPathString;
 
@@ -34,6 +36,7 @@ public class FileHandler implements FileHandlerInterface {
 
 		// List of all files and directories
 		this.fileList = directoryPath.listFiles();
+		this.directoryPathString = directoryPathString;
 	}
 
 	public File[] getFileList() {
@@ -52,7 +55,8 @@ public class FileHandler implements FileHandlerInterface {
 		if (fileList == null)
 			System.out.println("There is no file or directory to display");
 		else {
-			// Collections.sort(fileList, new FileNameComparator());
+			// Sort and print fileList in ascending order
+			Arrays.sort(fileList, new FileNameComparatorAsc());
 			System.out.println("");
 			for (File file : fileList) {
 				System.out.println(file.getName());
@@ -65,19 +69,18 @@ public class FileHandler implements FileHandlerInterface {
 	public void addFile() {
 		FileHandlingDisplay displayOptions = new FileHandlingDisplay();
 		String fileName;
-		
+
 		int isContinued; // Equals to 0 if user chose to exit sub-display
 		do {
 			// Show Add display
 			displayOptions.addDisplay();
 			/*
-			 * Take confirmation from user to
-			 * continue operating a file
-			 * */
+			 * Take confirmation from user to continue operating a file
+			 */
 			do {
-			isContinued = chooseAction(SUB_DISPLAY_CHOICES);
+				isContinued = chooseAction(SUB_DISPLAY_CHOICES);
 			} while (isContinued == -1);
-			
+
 			// Input fileName
 			if (isContinued != 0) {
 				do {
@@ -91,30 +94,28 @@ public class FileHandler implements FileHandlerInterface {
 	@Override
 	public void searchFile() {
 		/*
-		 * This method searches for a file or directory
-		 * in the directory by name and display name, 
-		 * absolute path, and size of the result(s) as
-		 * well as number of results found.
-		 * */
+		 * This method searches for a file or directory in the directory by name and
+		 * display name, absolute path, and size of the result(s) as well as number of
+		 * results found.
+		 */
 		if (fileList == null) {
 			System.out.println("This directory is empty");
 			return;
 		}
 		FileHandlingDisplay displayOptions = new FileHandlingDisplay();
 		String fileName;
-		
+
 		int isContinued; // Equals to 0 if user chose to exit sub-display
 		do {
 			// Show Search display
 			displayOptions.searchDisplay();
 			/*
-			 * Take confirmation from user to
-			 * continue operating a file
-			 * */
+			 * Take confirmation from user to continue operating a file
+			 */
 			do {
-			isContinued = chooseAction(SUB_DISPLAY_CHOICES);
+				isContinued = chooseAction(SUB_DISPLAY_CHOICES);
 			} while (isContinued == -1);
-			
+
 			// Input fileName
 			if (isContinued != 0) {
 				do {
@@ -125,23 +126,23 @@ public class FileHandler implements FileHandlerInterface {
 
 				System.out.println("-----");
 				System.out.println("Searching completed. " + countFind + " found.");
-				
+
 			}
 		} while (isContinued != 0);
 
 	}
-	
+
 	public int _searchFile(String fileName, File[] fileList) {
 		/*
 		 * This method is a wrapper function for searchFile()
-		 * */
+		 */
 		int countFind = 0;
 		for (File file : fileList) {
-			if (file.getName().matches(fileName) || file.getName().matches(fileName+".*")) {
+			if (file.getName().matches(fileName) || file.getName().matches(fileName + ".*")) {
 				System.out.println("-----");
-				System.out.println("Name: "+ file.getName());
-				System.out.println("Path: "+ file.getAbsolutePath());
-				System.out.println("Size: "+ file.length());
+				System.out.println("Name: " + file.getName());
+				System.out.println("Path: " + file.getAbsolutePath());
+				System.out.println("Size: " + file.length());
 				countFind++;
 			}
 			if (file.isDirectory()) {
@@ -150,6 +151,20 @@ public class FileHandler implements FileHandlerInterface {
 			}
 		}
 		return countFind;
+	}
+	
+	public String _searchExactFile(String fileName, File[] fileList) {
+		/*
+		 * This method is a wrapper function for searchFile().
+		 * Returns absolute path of fileName if found.
+		 * Otherwise, returns null.
+		 */
+		for (File file : fileList) {
+			if (file.getName().matches(fileName)) {
+				return file.getAbsolutePath();
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -160,29 +175,60 @@ public class FileHandler implements FileHandlerInterface {
 		}
 		FileHandlingDisplay displayOptions = new FileHandlingDisplay();
 		String fileName;
-		
+		boolean isDeleted = false;
+
 		int isContinued; // Equals to 0 if user chose to exit sub-display
 		do {
 			// Show Delete display
 			displayOptions.deleteDisplay();
 			/*
-			 * Take confirmation from user to
-			 * continue operating a file
-			 * */
+			 * Take confirmation from user to continue operating a file
+			 */
 			do {
-			isContinued = chooseAction(SUB_DISPLAY_CHOICES);
+				isContinued = chooseAction(SUB_DISPLAY_CHOICES);
 			} while (isContinued == -1);
-			
+
 			// Input fileName
 			if (isContinued != 0) {
 				do {
 					fileName = inputFileName();
 				} while (fileName == null);
 				// Delete fileName from the directory;
-				
+				String fileNameToDelete = _searchExactFile(fileName, fileList);
+				if (fileNameToDelete == null) {
+					System.out.println(fileName + " does not exist");
+				} else {
+					try {
+						File fileToDelete = new File(fileNameToDelete);
+						isDeleted = _deleteFile(fileToDelete);
+						if (isDeleted) {
+							System.out.println(fileName + " is deleted");
+							// Refresh fileList
+							refreshFileList();
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		} while (isContinued != 0);
 
+	}
+
+	public static boolean _deleteFile(File fileToDelete) {
+		// This method is a wrapper function for deleteFile
+		File[] files = fileToDelete.listFiles();
+		// If
+		if (files != null) {
+			for (File file : files) {
+				if (file.isDirectory())
+					_deleteFile(file);
+				else
+					file.delete();
+			}
+		}
+		return fileToDelete.delete();
 	}
 
 	@Override
@@ -190,7 +236,14 @@ public class FileHandler implements FileHandlerInterface {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	public void refreshFileList() {
+		/*
+		 * This method refreshes the fileList
+		 */
+		fileList = new File(directoryPathString).listFiles();
+	}
+	
 	public String inputFileName() {
 		/*
 		 * This method takes a fileName input by user and validates the input. A valid
@@ -214,7 +267,7 @@ public class FileHandler implements FileHandlerInterface {
 
 		return fileName;
 	}
-	
+
 	public int chooseAction(final int MAX_CHOICE) {
 		/*
 		 * This method takes input from user for user's action choice from the main
@@ -240,7 +293,7 @@ public class FileHandler implements FileHandlerInterface {
 	}
 
 	public void performAction(int choice) {
-		
+
 		switch (choice) {
 		case 1:
 			viewFiles();
@@ -253,6 +306,9 @@ public class FileHandler implements FileHandlerInterface {
 			break;
 		case 4:
 			searchFile();
+			break;
+		case 5:
+			refreshFileList();
 			break;
 		default:
 			break;
@@ -278,7 +334,7 @@ public class FileHandler implements FileHandlerInterface {
 			// Perform user's chosen action
 			if (choice != 0) {
 				performAction(choice);
-				//choice = -1; // Reset choice
+				// choice = -1; // Reset choice
 			}
 		} while (choice != 0);
 
