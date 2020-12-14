@@ -9,9 +9,13 @@ import driver.FileHandlingDisplay;
 import exceptions.*;
 
 public class FileHandler implements FileHandlerInterface {
-
-	public static final int MAIN_DISPLAY_CHOICES = 4;
+	/*
+	 * Number of choices from the main display and 
+	 * sub-display exclude option to exit the display
+	 * */ 
+	public static final int MAIN_DISPLAY_CHOICES = 4;  
 	public static final int SUB_DISPLAY_CHOICES = 1;
+	
 	private File[] fileList;
 	private String directoryPathString;
 
@@ -86,6 +90,12 @@ public class FileHandler implements FileHandlerInterface {
 
 	@Override
 	public void searchFile() {
+		/*
+		 * This method searches for a file or directory
+		 * in the directory by name and display name, 
+		 * absolute path, and size of the result(s) as
+		 * well as number of results found.
+		 * */
 		if (fileList == null) {
 			System.out.println("This directory is empty");
 			return;
@@ -111,10 +121,35 @@ public class FileHandler implements FileHandlerInterface {
 					fileName = inputFileName();
 				} while (fileName == null);
 				// Search for fileName in the directory;
+				int countFind = _searchFile(fileName, fileList);
+
+				System.out.println("-----");
+				System.out.println("Searching completed. " + countFind + " found.");
 				
 			}
 		} while (isContinued != 0);
 
+	}
+	
+	public int _searchFile(String fileName, File[] fileList) {
+		/*
+		 * This method is a wrapper function for searchFile()
+		 * */
+		int countFind = 0;
+		for (File file : fileList) {
+			if (file.getName().matches(fileName) || file.getName().matches(fileName+".*")) {
+				System.out.println("-----");
+				System.out.println("Name: "+ file.getName());
+				System.out.println("Path: "+ file.getAbsolutePath());
+				System.out.println("Size: "+ file.length());
+				countFind++;
+			}
+			if (file.isDirectory()) {
+				File subFileList[] = file.listFiles();
+				_searchFile(fileName, subFileList);
+			}
+		}
+		return countFind;
 	}
 
 	@Override
@@ -248,6 +283,8 @@ public class FileHandler implements FileHandlerInterface {
 		} while (choice != 0);
 
 		// User chose to exit the application
+
+		System.out.println("");
 		System.out.println("Application is closed. Goodbye!");
 	}
 
