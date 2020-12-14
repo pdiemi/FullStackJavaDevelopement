@@ -196,7 +196,7 @@ public class FileHandler implements FileHandlerInterface {
 
 	public String _searchExactFile(String fileName, File[] fileList) {
 		/*
-		 * This method is a wrapper function for searchFile(). Returns absolute path of
+		 * This method is a wrapper function for deleteFile(). Returns absolute path of
 		 * fileName if found. Otherwise, returns null.
 		 */
 		for (File file : fileList) {
