@@ -1,10 +1,13 @@
 package filehandling;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
-import comparators.*;
+import comparators.FileNameComparatorAsc;
 import driver.FileHandlingDisplay;
 import exceptions.FileNameIsNullException;
 import exceptions.FileNameIsTooLongException;
@@ -31,12 +34,13 @@ public class FileHandler implements FileHandlerInterface {
 	}
 
 	public FileHandler(String directoryPathString) {
+		this.directoryPathString = directoryPathString;
 		// Creating a File object for directory
 		File directoryPath = new File(directoryPathString);
 
 		// List of all files and directories
 		this.fileList = directoryPath.listFiles();
-		this.directoryPathString = directoryPathString;
+
 	}
 
 	public File[] getFileList() {
@@ -56,13 +60,49 @@ public class FileHandler implements FileHandlerInterface {
 			System.out.println("There is no file or directory to display");
 		else {
 			// Sort and print fileList in ascending order
-			Arrays.sort(fileList, new FileNameComparatorAsc());
-			System.out.println("");
-			for (File file : fileList) {
-				System.out.println(file.getName());
+			
+			int viewChoice;
+			System.out.println("Enter 0 to view all files and directories in current directory.");
+			System.out.println("Enter 1 to view all files in the application.");
+			viewChoice = chooseAction(1);
+			
+			switch (viewChoice) {
+			case 0:
+				Arrays.sort(fileList, new FileNameComparatorAsc());
+				System.out.println("");
+				for (File file : fileList) {
+					System.out.println(file.getName());
+				}
+				System.out.println("");
+				break;
+			case 1:
+				List<File> allFiles = new ArrayList<>();
+				dumbDirectory(directoryPathString, allFiles);
+				Collections.sort(allFiles, new FileNameComparatorAsc());
+				System.out.println("");
+				for (File file : allFiles) {
+					System.out.println(file.getName());
+				}
+				System.out.println("");
+				break;
 			}
-			System.out.println("");
+			
 		}
+	}
+
+	public void dumbDirectory(String directoryName, List<File> files) {
+
+		File directory = new File(directoryName);
+	    File[] fileList = directory.listFiles();
+	    
+		if (fileList != null)
+			for (File file : fileList) {
+				if (file.isFile()) {
+					files.add(file);
+				} else if (file.isDirectory()) {
+					dumbDirectory(file.getAbsolutePath(), files);
+				}
+			}
 	}
 
 	@Override
@@ -122,7 +162,8 @@ public class FileHandler implements FileHandlerInterface {
 					fileName = inputFileName();
 				} while (fileName == null);
 				// Search for fileName in the directory;
-				int countFind = _searchFile(fileName, fileList);
+				int countFind = 0;
+				countFind = _searchFile(fileName, fileList, countFind);
 
 				System.out.println("-----");
 				System.out.println("Searching completed. " + countFind + " found.");
@@ -132,11 +173,11 @@ public class FileHandler implements FileHandlerInterface {
 
 	}
 
-	public int _searchFile(String fileName, File[] fileList) {
+	public int _searchFile(String fileName, File[] fileList, int countFind) {
 		/*
 		 * This method is a wrapper function for searchFile()
 		 */
-		int countFind = 0;
+
 		for (File file : fileList) {
 			if (file.getName().matches(fileName) || file.getName().matches(fileName + ".*")) {
 				System.out.println("-----");
@@ -147,17 +188,16 @@ public class FileHandler implements FileHandlerInterface {
 			}
 			if (file.isDirectory()) {
 				File subFileList[] = file.listFiles();
-				_searchFile(fileName, subFileList);
+				_searchFile(fileName, subFileList, countFind);
 			}
 		}
 		return countFind;
 	}
-	
+
 	public String _searchExactFile(String fileName, File[] fileList) {
 		/*
-		 * This method is a wrapper function for searchFile().
-		 * Returns absolute path of fileName if found.
-		 * Otherwise, returns null.
+		 * This method is a wrapper function for searchFile(). Returns absolute path of
+		 * fileName if found. Otherwise, returns null.
 		 */
 		for (File file : fileList) {
 			if (file.getName().matches(fileName)) {
@@ -236,14 +276,14 @@ public class FileHandler implements FileHandlerInterface {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void refreshFileList() {
 		/*
 		 * This method refreshes the fileList
 		 */
 		fileList = new File(directoryPathString).listFiles();
 	}
-	
+
 	public String inputFileName() {
 		/*
 		 * This method takes a fileName input by user and validates the input. A valid
