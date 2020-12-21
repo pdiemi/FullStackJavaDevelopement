@@ -4,14 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity  //convert class into a table
-public class Employee {
+public class Employees {
 
-	@Id  //set empId as primary key
+	@Id  //set following member (empId) as primary key
 	private int empId;
 	private String empName;
 	private String empCity;
 	
-	public Employee(int empId, String empName, String empCity) {
+	@Override
+	public String toString() {
+		return "Employees [empId=" + empId + ", empName=" + empName + ", empCity=" + empCity + "]";
+	}
+
+	public Employees() {
+		super();
+	}
+
+	public Employees(int empId, String empName, String empCity) {
 		super();
 		this.empId = empId;
 		this.empName = empName;

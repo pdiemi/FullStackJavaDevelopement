@@ -27,7 +27,7 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping class = "com.entity.Employee"/>
+      <mapping class = "com.entity.Employees"/>
       
    </session-factory>
 </hibernate-configuration>
