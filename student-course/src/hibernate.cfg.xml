@@ -31,8 +31,8 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping class = "com.entity.Employees"/>
-      <mapping class = "com.entity.Address"/>
+      <mapping class = "com.entity.Student"/>
+      <mapping class = "com.entity.Course"/>
       
    </session-factory>
 </hibernate-configuration>

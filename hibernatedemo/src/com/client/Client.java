@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.entity.Address;
 import com.entity.Employees;
 import com.utility.HibernateUtility;
 
@@ -15,12 +16,13 @@ public class Client {
 		Session session = HibernateUtility.getSession();
 
 		// clear table EMPLOYEES
-		deleteAll(session);
+		//deleteAll(session);
 		// insert new Employees to the DB
 		String name = "name";
 		for (Integer i = 1001; i <= 1005; i++) {
 			String newName = name.concat(i.toString());
-			insert(session, i, newName, "austin");
+			Address address = new Address (i+1000, "austin", "usa");
+			insert(session, i, newName, "austin", address);
 		}
 		selectAll(session);
 		System.out.println("");
@@ -47,13 +49,14 @@ public class Client {
 			System.out.println(e);
 	}
 
-	public static void insert(Session session, int empId, String empName, String empCity) {
+	public static void insert(Session session, int empId, String empName, String empCity, Address empAddress) {
 		/*
 		 * Insert a new Employees into DB. 
 		 * Equivalent to INSERT INTO EMPLOYEES
 		 */
 		Transaction tx = session.beginTransaction();
-		Employees emp = new Employees(empId, empName, empCity);
+		Employees emp = new Employees(empAddress, empId, empName, empCity);
+		//session.save(empAddress);  // by using cascade, this line is done automatically
 		session.save(emp);
 		tx.commit();
 		System.out.println("user added");
