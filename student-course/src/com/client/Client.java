@@ -28,14 +28,14 @@ public class Client {
 		}
 		selectAll(session);
 		System.out.println("");
-		// search stuloyee given stuId
+		// search student given stuId
 		searchById(session, 1001);
 		System.out.println("");
-		// delete an stuloyee given stuId
+		// delete an student given stuId
 		delete(session, 1001);
 		selectAll(session);
 		System.out.println("");
-		//update an stuloyee given stuId
+		//update an student given stuId
 		updatestuEmail(session, 1002, "San Antonio");
 		selectAll(session);
 	}
