@@ -12,8 +12,10 @@
          org.h2.Driver
       </property>
       
+      <!-- Create a new Registration table if no exist
+      Otherwise, update the table -->
       <property name = "hibernate.hbm2ddl.auto">
-         create
+         update
       </property>
       
       <!-- Assume test is the database name -->
@@ -31,12 +33,7 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping class = "onetomany.Library"/>
-      <mapping class = "onetomany.Books"/>
-      <mapping class = "manytoone.Question"/>
-      <mapping class = "manytoone.Answers"/>
-      <mapping class = "com.entity.Address"/>
-      <mapping class = "com.entity.Employees"/>
+      <mapping class = "com.model.Registration"/>
       
    </session-factory>
 </hibernate-configuration>
