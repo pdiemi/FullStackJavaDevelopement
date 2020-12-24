@@ -9,7 +9,11 @@
 <body>
 
 <h1>Menu</h1>
-
+<p style="color:red;">IMPORTANT: Please generate sample users or add at least one user to test LOGIN functionality.</p>
+<a href="AddUserForm.jsp">Add User</a>
+<br/>
+<a href="FindUserForm.jsp">Find User</a>
+<br/>
 <a href="ViewUsers.jsp">View Users</a>
 <br/>
 <a href="GenerateSampleUsers.jsp">Generate Sample Users</a>

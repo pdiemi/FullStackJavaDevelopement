@@ -13,8 +13,7 @@
 	<h1>Delete All Users</h1>
 	<br/>
 	<%
-	UserDao userDao = new UserDao();
-	int status = userDao.deleteAllUsers();
+	int status = UserDao.deleteAllUsers();
 	if (status>0) {
 		out.println("All users are deleted.");
 	} else {

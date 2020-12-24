@@ -13,8 +13,7 @@
 	<h1>Generate Sample Users</h1>
 	<br/>
 	<%
-		UserDao userDao = new UserDao();
-	userDao.generateSampleUsers();
+	UserDao.generateSampleUsers();
 	out.println("Sample users are generated.");
 	%>
 	<br/>

@@ -11,7 +11,7 @@
 	<%@page import="com.dao.UserDao,com.user.*,java.util.*"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-	<h1>Users List</h1>
+	<h1>User List</h1>
 
 	<%
 		List<User> userList = UserDao.getAllUsers();
@@ -35,13 +35,13 @@
 				<td>${u.getUserLastName()}</td>
 				<td>${u.getUserEmail()}</td>
 				<td>${u.getUserCity()}</td>
-				<td><a href="editform.jsp?id=${u.getUserId()}">Edit</a></td>
-				<td><a href="deleteuser.jsp?id=${u.getUserId()}">Delete</a></td>
+				<td><a href="EditUserForm.jsp?id=${u.getUserId()}">Edit</a></td>
+				<td><a href="DeleteUser.jsp?id=${u.getUserId()}">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br />
-	<a href="adduserform.jsp">Add New User</a>
+	<a href="AddUserForm.jsp">Add New User</a>
 	<br/>
 	<a href="Index.jsp">Back to Menu</a>
 
