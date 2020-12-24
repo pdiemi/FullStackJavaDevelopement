@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Welcome</title>
 </head>
 <body>
-Welcome <%= session.getAttribute("sessionname") %>
+	<%
+		out.println("Welcome " + session.getAttribute("sessionname"));
+	%>
 
-<br/>
-<a href="LogoutServlet">logout</a>
+	<br />
+	<a href="LogoutServlet">logout</a>
 </body>
 </html>

@@ -13,9 +13,9 @@
       </property>
       
       <!-- Create a new Registration table if no exist
-      Otherwise, update the table -->
+      Otherwise, drop the existing table and create a new one-->
       <property name = "hibernate.hbm2ddl.auto">
-         update
+         create
       </property>
       
       <!-- Assume test is the database name -->
@@ -33,7 +33,7 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping class = "com.model.Registration"/>
+      <mapping class = "com.user.User"/>
       
    </session-factory>
 </hibernate-configuration>
