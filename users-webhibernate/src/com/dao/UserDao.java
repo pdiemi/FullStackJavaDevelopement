@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.user.Login;
 import com.user.User;
 import com.utility.HibernateUtility;
 
@@ -49,7 +50,6 @@ public class UserDao {
 	public static boolean deleteUser(User user) {
 		boolean status = false;
 		try {
-			System.out.println(user);
 			Transaction tx = session.beginTransaction();
 			User userToDelete = (User) session.get(User.class, user.getUserId());
 			session.delete(userToDelete);
@@ -88,5 +88,25 @@ public class UserDao {
 			User user = new User(userFirstName, userLastName, userEmail, userCity);
 			addUser(user);
 		}
+	}
+	
+	public static boolean login(Login login) {
+		boolean loginVerified = false;
+		try {
+			List<User> matchedUser = session
+					.createQuery("from User where userFirstName = '" + login.getUsername() + "'")
+					.list();
+			for (User user : matchedUser) {
+				if (login.getPassword().equals(user.getUserEmail())) {
+					loginVerified = true;
+					return loginVerified;
+				} 
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return loginVerified;
 	}
 }

@@ -14,9 +14,11 @@ User u = UserDao.getUserById(Integer.valueOf(request.getParameter("id")));
 %>
 
 <h1>Edit Form</h1>
+
+<p style="color:red;">User ID cannot be changed.</p>
 <form action="EditUser.jsp" method="post">
-<input type="hidden" name="userId" value="<%=u.getUserId() %>"/>
 <table>
+<tr><td>User ID:</td><td><input type="text" name="userId" value="<%=u.getUserId() %>" readonly/></td></tr>
 <tr><td>First Name:</td><td><input type="text" name="userFirstName" value="<%= u.getUserFirstName()%>"/></td></tr>
 <tr><td>Last Name:</td><td><input type="text" name="userLastName" value="<%= u.getUserLastName()%>"/></td></tr>
 <tr><td>Email:</td><td><input type="email" name="userEmail" value="<%= u.getUserEmail()%>"/></td></tr>

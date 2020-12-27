@@ -17,7 +17,10 @@
 		List<User> userList = UserDao.getAllUsers();
 	request.setAttribute("list", userList);
 	%>
-	
+	<br />
+	<a href="DeleteAllUsers.jsp">Delete All Users</a>
+	<a style="color:red;"> (WARNING: This action will delete all users from the database)</a>
+	<br /><br />
 	<table border="1" width="90%">
 		<tr>
 			<th>User ID</th>
@@ -42,7 +45,7 @@
 	</table>
 	<br />
 	<a href="AddUserForm.jsp">Add New User</a>
-	<br/>
+	<br />
 	<a href="Index.jsp">Back to Menu</a>
 
 </body>

@@ -15,7 +15,8 @@
 	<%
 	int status = UserDao.deleteAllUsers();
 	if (status>0) {
-		out.println("All users are deleted.");
+		//out.println("All users are deleted.");
+		response.sendRedirect("ViewUsers.jsp");
 	} else {
 		out.println("Failed to delete all users.");
 	}

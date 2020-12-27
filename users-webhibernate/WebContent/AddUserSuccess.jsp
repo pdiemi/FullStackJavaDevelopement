@@ -15,7 +15,7 @@
 
 	<br />
 	<br />
-	<a href="AddUserForm.jsp">Add Another New User</a>
+	<a href="AddUserForm.jsp">Add New User</a>
 	<br />
 	<a href="Index.jsp">Back to Menu</a>
 	<br />

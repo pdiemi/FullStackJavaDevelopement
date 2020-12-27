@@ -46,6 +46,8 @@ if(foundUser==null){
 	</table>
 	<br/>
 	<br/>
+	<a href="FindUserForm.jsp">Find User</a>
+	<br />
 	<a href="Index.jsp">Back to Menu</a>
 
 </body>
