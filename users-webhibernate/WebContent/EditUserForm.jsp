@@ -23,6 +23,7 @@ User u = UserDao.getUserById(Integer.valueOf(request.getParameter("id")));
 <tr><td>Last Name:</td><td><input type="text" name="userLastName" value="<%= u.getUserLastName()%>"/></td></tr>
 <tr><td>Email:</td><td><input type="email" name="userEmail" value="<%= u.getUserEmail()%>"/></td></tr>
 <tr><td>City:</td><td><input type="text" name="userCity" value="<%= u.getUserCity()%>"/></td></tr>
+<tr><td>Password:</td><td><input type="password" name="userPassword" value="<%= u.getUserPassword()%>"/></td></tr>
 <tr><td colspan="2"><input type="submit" value="Save"/></td></tr>
 </table>
 </form>

@@ -12,7 +12,7 @@
 <p style="color:red;">IMPORTANT: Please generate sample users or add at least one user to test LOGIN functionality.</p>
 <a href="Login.jsp">Login</a>
 <br/>
-<a href="AddUserForm.jsp">Add New User</a>
+<a href="AddUserForm.jsp">Add New User/Register</a>
 <br/>
 <a href="FindUserForm.jsp">Find User</a>
 <br/>

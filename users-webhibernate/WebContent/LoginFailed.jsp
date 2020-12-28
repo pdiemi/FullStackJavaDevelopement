@@ -11,8 +11,8 @@
 	<p style="color: red;">Username or password is incorrect. Please
 		try again.</p>
 	<br />
-	<p style="color: red;">Notes: username is your first name (case
-		insensitive) and password is your email.</p>
+	<p style="color: red;">Notes: username is your email (case
+		insensitive).</p>
 	<form method="post" action="LoginVerify.jsp">
 		Username:<input type="text" name="username"> <br /> 
 		Password:<input	type="password" name="password"><br>

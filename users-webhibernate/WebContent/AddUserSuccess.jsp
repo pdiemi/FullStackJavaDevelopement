@@ -6,7 +6,7 @@
 </head>
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<h1>Add New User</h1>
+	<h1>Add New User/Register</h1>
 
 	<%
 		out.println(session.getAttribute("welcomeMessage"));
@@ -15,7 +15,7 @@
 
 	<br />
 	<br />
-	<a href="AddUserForm.jsp">Add New User</a>
+	<a href="AddUserForm.jsp">Add New User/Register</a>
 	<br />
 	<a href="Index.jsp">Back to Menu</a>
 	<br />

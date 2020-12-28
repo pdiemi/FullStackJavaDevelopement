@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Add New User/Register</h1>
-	<p style="color:red;">Sorry, an error has occurred! Please try again!</p>
+	<p style="color:red;">User with this email already exists. Please try again!</p>
 	<br />
 	<br />
 	<a href="AddUserForm.jsp">Add New User/Register</a>

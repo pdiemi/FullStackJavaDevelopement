@@ -14,26 +14,29 @@ public class User {
 	private String userLastName;
 	private String userEmail;
 	private String userCity;
+	private String userPassword;
 	
 	public User() {
 		super();
 	}
 
-	public User(String userFirstName, String userLastName, String userEmail, String userCity) {
+	public User(String userFirstName, String userLastName, String userEmail, String userCity, String userPassword) {
 		super();
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.userEmail = userEmail;
 		this.userCity = userCity;
+		this.userPassword = userPassword;
 	}
 
-	public User(int userId, String userFirstName, String userLastName, String userEmail, String userCity) {
+	public User(int userId, String userFirstName, String userLastName, String userEmail, String userCity, String userPassword) {
 		super();
 		this.userId = userId;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.userEmail = userEmail;
 		this.userCity = userCity;
+		this.userPassword = userPassword;
 	}
 
 	public int getUserId() {
@@ -76,11 +79,20 @@ public class User {
 		this.userCity = userCity;
 	}
 
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userFirstName=" + userFirstName + ", userLastName=" + userLastName
-				+ ", userEmail=" + userEmail + ", userCity=" + userCity + "]";
+				+ ", userEmail=" + userEmail + ", userCity=" + userCity + ", userPassword=" + userPassword + "]";
 	}
+
 	
 	
 }

@@ -3,13 +3,26 @@
 <jsp:setProperty property="*" name="u" />
 
 <%
-	boolean status = UserDao.addUser(u);
-if (status) {
-	String welcomeMessage = "Welcome ";
-	welcomeMessage = welcomeMessage.concat(request.getParameter("userFirstName")).concat(" ").concat(request.getParameter("userLastName"));
+	int status = UserDao.addUser(u);
+switch (status) {
+case 0:
+	response.sendRedirect("AddUserError.jsp");
+	break;
+case 1:
+	String welcomeMessage = "User is added/registered. Welcome ";
+	welcomeMessage = welcomeMessage.concat(request.getParameter("userFirstName")).concat(" ")
+	.concat(request.getParameter("userLastName"));
 	session.setAttribute("welcomeMessage", welcomeMessage);
 	response.sendRedirect("AddUserSuccess.jsp");
-} else {
+	break;
+case 2:
+	response.sendRedirect("UserAlreadyExists.jsp");
+	break;
+case 3:
+	response.sendRedirect("AddUserForm.jsp");
+	break;
+default:
 	response.sendRedirect("AddUserError.jsp");
+	break;
 }
 %>

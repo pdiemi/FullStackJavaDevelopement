@@ -13,17 +13,42 @@ public class UserDao {
 
 	private static Session session = HibernateUtility.getSession();
 
-	public static boolean addUser(User user) {
-		boolean status = false;
-		try {
-			Transaction tx = session.beginTransaction();
-			User userToAdd = new User(user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(),
-					user.getUserCity());
-			session.save(userToAdd);
-			tx.commit();
-			status = true;
-		} catch (Exception e) {
-			e.printStackTrace();
+	public static int addUser(User user) {
+		/*
+		 * This method tries to add a user to the database. 
+		 * Return 1 if success. 
+		 * Return 2 if failed because user already exists. 
+		 * Return 3 if failed due to empty email or password
+		 * Return 0 if failed due to other exceptions.
+		 */
+		int status = 0;
+		/*
+		 * Check if user's email of password is null.
+		 * If so, return 3.
+		 * */
+		if (user.getUserEmail() == null || user.getUserPassword() == null)
+			return 3;
+		else {
+
+			try {
+				/*
+				 * Check if the user.userEmail already exists. If exists, set status to 2
+				 */
+				List<User> userExists = session.createQuery("from User where userEmail = '" + user.getUserEmail() + "'")
+						.list();
+				if (userExists.size() > 0) {
+					status = 2;
+				} else {
+					Transaction tx = session.beginTransaction();
+					User userToAdd = new User(user.getUserFirstName(), user.getUserLastName(), user.getUserEmail(),
+							user.getUserCity(), user.getUserPassword());
+					session.save(userToAdd);
+					tx.commit();
+					status = 1;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return status;
 	}
@@ -38,6 +63,7 @@ public class UserDao {
 			userToUpdate.setUserLastName(user.getUserLastName());
 			userToUpdate.setUserEmail(user.getUserEmail());
 			userToUpdate.setUserCity(user.getUserCity());
+			userToUpdate.setUserPassword(user.getUserPassword());
 			session.update(userToUpdate);
 			tx.commit();
 			status = true;
@@ -84,25 +110,25 @@ public class UserDao {
 		for (Integer i = 1; i <= 5; i++) {
 			String userFirstName = firstname.concat(i.toString());
 			String userLastName = lastname.concat(i.toString());
-			String userEmail = userFirstName.concat(".").concat(userLastName).concat(email).replaceAll("\\s+","");
-			User user = new User(userFirstName, userLastName, userEmail, userCity);
+			String userEmail = userFirstName.concat(".").concat(userLastName).concat(email).replaceAll("\\s+", "");
+			String userPassword = userEmail;
+			User user = new User(userFirstName, userLastName, userEmail, userCity, userPassword);
 			addUser(user);
 		}
 	}
-	
+
 	public static boolean login(Login login) {
 		boolean loginVerified = false;
 		try {
-			List<User> matchedUser = session
-					.createQuery("from User where userFirstName = '" + login.getUsername() + "'")
+			List<User> matchedUser = session.createQuery("from User where userEmail = '" + login.getUsername() + "'")
 					.list();
 			for (User user : matchedUser) {
-				if (login.getPassword().equals(user.getUserEmail())) {
+				if (login.getPassword().equals(user.getUserPassword())) {
 					loginVerified = true;
 					return loginVerified;
-				} 
+				}
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
