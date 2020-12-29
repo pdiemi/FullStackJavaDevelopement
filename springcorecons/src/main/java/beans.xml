@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="true">
+
+	<!-- context:component-scan scans package "com" and its sub-package for any 
+		existing annotation -->
+	<context:component-scan base-package="com"></context:component-scan>
+
+	<bean id="fda" class="com.model.FixedAccount">
+		<constructor-arg name="roi" value="4.5"></constructor-arg>
+		<constructor-arg name="duration" value="6"></constructor-arg>
+
+	</bean>
+
+	<bean id="sa" class="com.model.SavingAccount">
+
+		<constructor-arg name="roi" value="5.5"></constructor-arg>
+		<constructor-arg name="duration" value="5"></constructor-arg>
+
+	</bean>
+
+	<bean id="cra" class="com.model.CurrentAccount">
+
+		<constructor-arg name="roi" value="5.5"></constructor-arg>
+		<constructor-arg name="duration" value="5"></constructor-arg>
+
+	</bean>
+
+	<bean id="service" class="com.service.CalculatorService">
+
+		<constructor-arg name="ic" ref="cra"></constructor-arg>
+
+	</bean>
+
+
+
+</beans>
