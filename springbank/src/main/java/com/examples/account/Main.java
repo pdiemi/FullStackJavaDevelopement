@@ -4,21 +4,27 @@ package com.examples.account;
 //import static org.junit.Assert.assertThat;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.examples.account.domain.Account;
 import com.examples.account.repository.AccountRepository;
 import com.examples.account.service.TransferService;
+import com.examples.config.AppConfig;
 
 public class Main {
     public static void main(String[] args) {
     	
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[] { "beans.xml" });
+		/*
+		 * ApplicationContext context = new ClassPathXmlApplicationContext( new String[]
+		 * { "beans.xml" });
+		 */
 		
+    	ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+    	
 		// retrieve the beans we'll use during testing
 		AccountRepository accountRepository = (AccountRepository) context.getBean("accountRepository");
 		TransferService transferService = (TransferService) context.getBean("transferService");
+		
 		
 		// create accounts to test against
 		accountRepository.add(new Account("A123", 1000.00));

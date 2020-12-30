@@ -1,17 +1,16 @@
 package com.examples.account.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Lazy;
 
 import com.examples.account.domain.Account;
 import com.examples.account.repository.AccountRepository;
 
-@Service(value="transferService")
+@Lazy
 public class TransferServiceImpl implements TransferService {
 
 	private final AccountRepository accountRepository;
-	@Autowired
+	
 	public TransferServiceImpl(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
 	}

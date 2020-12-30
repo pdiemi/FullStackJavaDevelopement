@@ -8,7 +8,7 @@
 
 	<!-- context:component-scan scans package "com" and its sub-package for 
 		any existing annotation -->
-	<context:component-scan base-package="com"></context:component-scan>
+	<!-- <context:component-scan base-package="com"></context:component-scan> -->
 <!--  
 	<bean id="accountRepository"
 		class="com.examples.account.repository.InMemoryAccountRepository">

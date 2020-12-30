@@ -5,11 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.stereotype.Component;
-
 import com.examples.account.domain.Account;
 
-@Component(value="accountRepository")
 public class InMemoryAccountRepository implements AccountRepository {
 
 	private final Map<String, Account> accountsById = new HashMap<String, Account>();
