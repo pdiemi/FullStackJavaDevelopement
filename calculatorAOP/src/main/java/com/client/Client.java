@@ -4,22 +4,20 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.config.AppConfig;
-import com.model.WelcomeDAO;
+import com.model.CalculatorDAO;
 
 public class Client {
 
 	public static void main(String[] args) {
-		
+
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-		WelcomeDAO wd = (WelcomeDAO) context.getBean("welcomeImpl");
-		
-		System.out.println(wd.sayWelcom("Diemi"));
-		/*
-		System.out.println();
-		wd.sayHi("Diemi", "diemi@mail.com");
-		wd.sayAround();
-		*/
+		CalculatorDAO cal = (CalculatorDAO) context.getBean("calculatorDAOImpl");
+
+		cal.add(4, 5);
+		cal.sub(4, 5);
+		cal.multiply(4, 5);
+
 		context.close();
 	}
 

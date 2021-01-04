@@ -5,24 +5,23 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class AppInterceptor implements Ordered{
+public class AppInterceptor {
 
-	@Before("execution(* com.model.WelcomeDAO.*(..))")
+	@Before("execution(* com.model.CalculatorDAO.add(..))")
 	public void calledBefore() {
-		System.out.println("called before 1");
+		System.out.println("called before");
 	}
 	
-	@After("execution(* com.model.WelcomeDAO.*(..))")
+	@After("execution(* com.model.CalculatorDAO.sub(..))")
 	public void calledAfter() {
 		System.out.println("called after");
 	}
 	
-	@Around("execution(* com.model.WelcomeDAO.sayAround(..))")
+	@Around("execution(* com.model.CalculatorDAO.multiply(..))")
 	public void calledAround(ProceedingJoinPoint pj) {
 		System.out.println("called around");
 		try {
@@ -33,9 +32,4 @@ public class AppInterceptor implements Ordered{
 		}
 	}
 
-	@Override
-	public int getOrder() {
-		// TODO Auto-generated method stub
-		return 1;
-	}
 }

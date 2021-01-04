@@ -11,4 +11,16 @@ public class WelcomeImpl implements WelcomeDAO{
 		
 	}
 
+	@Override
+	public void sayHi(String name, String email) {
+		System.out.print("Hi "+name+"! Your eamil is "+email+"\n");
+		
+	}
+
+	@Override
+	public void sayAround() {
+		System.out.print("I just swing by\n");
+		
+	}
+
 }
