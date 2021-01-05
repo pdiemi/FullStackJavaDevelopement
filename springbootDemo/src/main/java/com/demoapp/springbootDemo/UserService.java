@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-	private HashMap<String, String> userList = new HashMap();
+	private HashMap<String, String> userList = new HashMap<String, String>();
 
 	public boolean loginValid(String username, String password) {
-		//if (username.equals("admin") && password.equals("manager")) {
+		// if (username.equals("admin") && password.equals("manager")) {
+		if (userList.isEmpty()) {
+			return false;
+		}
 		if (userList.get(username).equals(password)) {
 			return true;
 		}
@@ -26,6 +29,25 @@ public class UserService {
 		return false;
 	}
 
+	public boolean findUser(String username) {
+		String password = userList.get(username);
+		if (password != null) {
+			System.out.println("User found "+username+"password");
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateUser(String username, String password) {
+		String oldPassword = userList.get(username);
+		
+		return userList.replace(username, oldPassword, password);
+	}
+	
+	public boolean deleteUser(String username) {
+		return userList.remove(username, userList.get(username));
+	}
+	
 	public UserService() {
 		super();
 	}
