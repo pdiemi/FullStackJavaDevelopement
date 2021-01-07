@@ -11,6 +11,7 @@ import com.springboot.web.dao.TodoDAO;
 import com.springboot.web.model.Todo;
 
 @Service
+//@Transactional
 public class TodoService {
     private static List<Todo> todos = new ArrayList<Todo>();
     private static int todoCount = 3;
