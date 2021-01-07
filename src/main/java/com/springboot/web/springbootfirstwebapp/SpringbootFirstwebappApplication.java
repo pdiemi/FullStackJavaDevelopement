@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("com.springboot.web")
-@EntityScan("com.springboot.web")
 @EnableJpaRepositories("com.springboot.web")
+@EntityScan("com.springboot.web")
 public class SpringbootFirstwebappApplication {
 
 	public static void main(String[] args) {

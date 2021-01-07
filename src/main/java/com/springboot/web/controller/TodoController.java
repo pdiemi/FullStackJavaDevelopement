@@ -20,8 +20,19 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.springboot.web.model.Todo;
 import com.springboot.web.service.TodoService;
 
+/*
+ * @Controller --> you can either use Spring MVC Application
+ * or SpringREST application annotating @ResponseBody for each method.
+ * Returns the ModelAndView object.
+ * 
+ * @RestController --> @ResponseBody is included by default hence you
+ * should work only SpringREST web service only.
+ * Returns the response object/entity.
+ * You do not have viewresolver phase
+ * 
+ * */
 @Controller
-@SessionAttributes({"name", "email", "city", "password"})
+@SessionAttributes("name")
 public class TodoController {
 
 	@Autowired
@@ -31,7 +42,8 @@ public class TodoController {
 	public void initBinder(WebDataBinder binder) {
 		// Date - dd/MM/yyyy
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
 	}
 
 	@RequestMapping(value = "/list-todos", method = RequestMethod.GET)
@@ -43,7 +55,8 @@ public class TodoController {
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)
 	public String showAddTodoPage(ModelMap model) {
-		model.addAttribute("todo", new Todo(0, (String) model.get("name"), "Default Desc", new Date(), false));
+		model.addAttribute("todo", new Todo(0, (String) model.get("name"),
+				"Default Desc", new Date(), false));
 		return "todo";
 	}
 
@@ -61,7 +74,8 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
-	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
+	public String updateTodo(ModelMap model, @Valid Todo todo,
+			BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "todo";
@@ -75,17 +89,14 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-	public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result, @RequestParam String email,
-			@RequestParam String city) {
+	public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "todo";
 		}
 
-		model.put("email", email);
-		model.put("city", city);
-		
-		service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(), false);
+		service.addTodo((String) model.get("name"), todo.getDesc(), todo.getTargetDate(),
+				false);
 		return "redirect:/list-todos";
 	}
 }

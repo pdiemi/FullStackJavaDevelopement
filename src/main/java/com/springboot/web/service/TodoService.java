@@ -5,19 +5,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.web.dao.TodoDAO;
 import com.springboot.web.model.Todo;
 
 @Service
 public class TodoService {
     private static List<Todo> todos = new ArrayList<Todo>();
     private static int todoCount = 3;
-    
-    @Autowired
-    private TodoDAO todoDao;
 
     static {
         todos.add(new Todo(1, "Asreet", "Learn Spring MVC", new Date(),
@@ -53,8 +48,7 @@ public class TodoService {
 
     public void addTodo(String name, String desc, Date targetDate,
             boolean isDone) {
-        //todos.add(new Todo(++todoCount, name, desc, targetDate, isDone));
-        todoDao.save(new Todo(++todoCount, name, desc, targetDate, isDone));
+        todos.add(new Todo(++todoCount, name, desc, targetDate, isDone));
     }
 
     public void deleteTodo(int id) {
@@ -66,12 +60,4 @@ public class TodoService {
             }
         }
     }
-
-	public TodoDAO getTodoDao() {
-		return todoDao;
-	}
-
-	public void setTodoDao(TodoDAO todoDao) {
-		this.todoDao = todoDao;
-	}
 }

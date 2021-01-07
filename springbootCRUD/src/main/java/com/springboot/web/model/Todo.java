@@ -2,13 +2,19 @@ package com.springboot.web.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Todo {
+	@Id
     private int id;
     private String user;
     
     @Size(min=10, message="Enter at least 10 Characters...")
+    @Column(name="description")
     private String desc;
 
     private Date targetDate;

@@ -11,6 +11,7 @@
 <body>
 	<div class="container">
 
+
 		<form:form method="post" commandName="todo">
 			<form:hidden path="id" />
 			<fieldset class="form-group">
@@ -25,18 +26,6 @@
 				<form:input path="targetDate" type="text" class="form-control"
 					required="required" />
 				<form:errors path="targetDate" cssClass="text-warning" />
-			</fieldset>
-			
-			<fieldset class="form-group">
-				<label for="email">Email</label>
-				<input type="email" class="form-control" name="email"
-					required="required" />
-			</fieldset>
-			
-			<fieldset class="form-group">
-				<label for="city">City</label>
-				<input type="text" class="form-control" name="city"
-					required="required" />
 			</fieldset>
 
 			<button type="submit" class="btn btn-danger">Add</button>
