@@ -1,0 +1,32 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.sovanm.profiles.configuration.DBConfiguration",
+      "name": "spring.datasource",
+      "type": "com.sovanm.profiles.configuration.DBConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.sovanm.profiles.configuration.DBConfiguration",
+      "name": "spring.datasource.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.sovanm.profiles.configuration.DBConfiguration",
+      "name": "spring.datasource.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.sovanm.profiles.configuration.DBConfiguration",
+      "name": "spring.datasource.url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.sovanm.profiles.configuration.DBConfiguration",
+      "name": "spring.datasource.username",
+      "type": "java.lang.String"
+    }
+  ]
+}
