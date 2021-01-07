@@ -8,6 +8,6 @@ import com.springboot.web.model.Todo;
 
 
 @Repository
-public interface TodoDAO extends CrudRepository<Todo, String>{
+public interface TodoDAO extends CrudRepository<Todo, Integer>{
 
 }
