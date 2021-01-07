@@ -51,12 +51,13 @@ public class MainApp2 {
 	}
 
 	@GetMapping("/loadusers")
+	@ResponseBody
 	/*
 	 * public HashMap<String, String> loadUsers() { return
 	 * userService.getUserList(); }
 	 */
 	public List<Login> loadUsers() {
-		return userService.getUserList();
+		return userService.findAllUsers();
 	}
 
 	@GetMapping("/finduser/{username}")

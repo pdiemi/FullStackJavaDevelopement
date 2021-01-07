@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>Register Failed</h1>
-<p style=color:red>Register failed. Password did not match.</p> 
+<p style=color:red>Register failed. Username already exists or Password did not match.</p> 
 </body>
 </html>
